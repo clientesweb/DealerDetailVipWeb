@@ -34,17 +34,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setInterval(rotateBanner, 5000);
 
+    // About Section Swiper
+    new Swiper('.about-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+    });
+
     // Service Modal
     const serviceModal = document.createElement('div');
     serviceModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden';
     serviceModal.innerHTML = `
-        <div class="bg-black border border-[#00FF00] p-8 rounded-lg max-w-md w-full relative">
-            <button id="closeModal" class="absolute top-2 right-2 text-[#00FF00] hover:text-white text-2xl" aria-label="Close modal">&times;</button>
-            <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-[#00FF00]"></h2>
-            <p id="modalDescription" class="mb-4 text-white"></p>
-            <ul id="modalFeatures" class="list-disc pl-5 mb-4 text-white"></ul>
-            <p id="modalPrice" class="font-bold mb-4 text-[#00FF00]"></p>
-            <button id="modalBookNow" class="bg-[#00FF00] text-black px-4 py-2 rounded-full hover:bg-opacity-80 transition">Book Now</button>
+        <div class="bg-white p-8 rounded-lg max-w-md w-full relative">
+            <button id="closeModal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-2xl" aria-label="Close modal">&times;</button>
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="mb-4"></p>
+            <ul id="modalFeatures" class="list-disc pl-5 mb-4"></ul>
+            <p id="modalPrice" class="font-bold mb-4"></p>
         </div>
     `;
     document.body.appendChild(serviceModal);
@@ -54,57 +71,56 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalFeatures = document.getElementById('modalFeatures');
     const modalPrice = document.getElementById('modalPrice');
     const closeModal = document.getElementById('closeModal');
-    const modalBookNow = document.getElementById('modalBookNow');
     const viewServiceButtons = document.querySelectorAll('.view-service');
 
     const serviceDetails = {
-        'protection-film': {
-            title: "Protection Film",
-            description: "Protect your vehicle's paint with our high-quality film application.",
+        wash: {
+            title: "Premium Wash & Wax",
+            description: "Our Premium Wash & Wax service is designed to give your vehicle a showroom-quality finish.",
             features: [
-                "Advanced paint protection film",
-                "Shields against rock chips and scratches",
-                "Self-healing properties",
-                "UV protection",
-                "Preserves resale value"
+                "Thorough exterior wash",
+                "Clay bar treatment",
+                "High-quality wax application",
+                "Tire and rim cleaning",
+                "Interior vacuum and wipe-down"
             ],
-            price: "From $499.99"
+            price: "From $49.99"
         },
-        'steam-cleaning': {
-            title: "Steam Cleaning",
-            description: "Deep clean your vehicle's interior with our professional steam cleaning service.",
+        interior: {
+            title: "Interior Detailing",
+            description: "Our Interior Detailing service deep cleans and refreshes your vehicle's interior.",
             features: [
-                "Eliminates bacteria and allergens",
-                "Removes tough stains",
-                "Deodorizes interior",
-                "Eco-friendly cleaning method",
-                "Safe for all interior surfaces"
+                "Thorough vacuuming",
+                "Steam cleaning of upholstery",
+                "Leather treatment (if applicable)",
+                "Dashboard and console cleaning",
+                "Window and mirror cleaning"
             ],
-            price: "From $149.99"
+            price: "From $89.99"
         },
-        'paint-correction': {
+        paint: {
             title: "Paint Correction",
-            description: "Restore your vehicle's paint to its original glory with our expert paint correction service.",
+            description: "Our Paint Correction service removes imperfections and restores your vehicle's paint to its original glory.",
             features: [
-                "Removes swirl marks and light scratches",
-                "Enhances paint clarity and gloss",
-                "Improves overall appearance",
-                "Prepares surface for ceramic coating",
-                "Performed by certified technicians"
+                "Multi-stage polishing process",
+                "Swirl and scratch removal",
+                "Paint depth measurement",
+                "High-gloss finish",
+                "Protective sealant application"
+            ],
+            price: "From $199.99"
+        },
+        ceramic: {
+            title: "Ceramic Coating",
+            description: "Our Ceramic Coating service provides long-lasting protection and an unmatched shine for your vehicle.",
+            features: [
+                "Paint decontamination",
+                "Single-stage paint correction",
+                "Professional-grade ceramic coating application",
+                "Hydrophobic properties",
+                "UV protection"
             ],
             price: "From $299.99"
-        },
-        'ceramic-coating': {
-            title: "Ceramic Coating",
-            description: "Protect your vehicle's paint with a long-lasting ceramic coating.",
-            features: [
-                "Superior protection against environmental contaminants",
-                "Enhances paint gloss and depth",
-                "Hydrophobic properties for easy cleaning",
-                "UV resistance to prevent fading",
-                "Long-lasting protection (2-5 years)"
-            ],
-            price: "From $699.99"
         }
     };
 
@@ -124,11 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
         serviceModal.classList.add('hidden');
     });
 
-    modalBookNow.addEventListener('click', () => {
-        serviceModal.classList.add('hidden');
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    });
-
     // Gallery Filter
     const filterButtons = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
@@ -141,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.add('active');
 
             galleryItems.forEach(item => {
-                if (filter === 'all' || item.classList.contains(filter)) {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -150,51 +161,107 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Testimonials Auto-scroll
-    const testimonials = document.querySelector('.testimonials-auto-scroll');
-    let scrollPosition = 0;
-    const scrollSpeed = 1;
+    // Gallery Modal
+    const galleryModal = document.createElement('div');
+    galleryModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden';
+    galleryModal.innerHTML = `
+        <div class="bg-white p-8 rounded-lg max-w-4xl w-full relative">
+            <button id="closeGalleryModal" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-2xl" aria-label="Close gallery modal">&times;</button>
+            <h2 id="galleryModalTitle" class="text-2xl font-bold mb-4"></h2>
+            <div id="galleryModalImages" class="swiper gallery-swiper mb-4">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <p id="galleryModalDescription" class="mb-4"></p>
+        </div>
+    `;
+    document.body.appendChild(galleryModal);
 
-    function autoScrollTestimonials() {
-        scrollPosition += scrollSpeed;
-        if (scrollPosition >= testimonials.scrollWidth / 2) {
-            scrollPosition = 0;
-        }
-        testimonials.style.transform = `translateX(-${scrollPosition}px)`;
-        requestAnimationFrame(autoScrollTestimonials);
-    }
+    const galleryModalTitle = document.getElementById('galleryModalTitle');
+    const galleryModalImages = document.getElementById('galleryModalImages');
+    const galleryModalDescription = document.getElementById('galleryModalDescription');
+    const closeGalleryModal = document.getElementById('closeGalleryModal');
+    const viewWorkButtons = document.querySelectorAll('.view-work');
 
-    autoScrollTestimonials();
+    viewWorkButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const galleryItem = button.closest('.gallery-item');
+            const images = JSON.parse(galleryItem.getAttribute('data-images'));
+            const description = galleryItem.getAttribute('data-description');
+            const title = galleryItem.querySelector('h3').textContent;
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
+            galleryModalImages.querySelector('.swiper-wrapper').innerHTML = images.map(image => `
+                <div class="swiper-slide">
+                    <img src="${image}" alt="${title}" class="w-full h-auto">
+                </div>
+            `).join('');
 
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
+            galleryModalTitle.textContent = title;
+            galleryModalDescription.textContent = description;
+            galleryModal.classList.remove('hidden');
 
-        question.addEventListener('click', () => {
-            const isOpen = item.classList.contains('open');
-
-            faqItems.forEach(otherItem => {
-                otherItem.classList.remove('open');
-                otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            new Swiper('.gallery-swiper', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
             });
-
-            if (!isOpen) {
-                item.classList.add('open');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-            }
         });
     });
 
-    // Booking Modal
+    closeGalleryModal.addEventListener('click', () => {
+        galleryModal.classList.add('hidden');
+    });
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const icon = question.querySelector('i');
+
+            answer.classList.toggle('active');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        });
+    });
+
+    // Booking Modal y Notificación
     const bookNowBtn = document.getElementById('bookNowBtn');
     const bookingModal = document.getElementById('bookingModal');
     const closeBookingModal = bookingModal.querySelector('.close');
+    const bookNowNotification = document.getElementById('bookNowNotification');
+
+    let notificationTimeout;
+
+    function showNotification() {
+        bookNowNotification.classList.remove('opacity-0');
+        bookNowNotification.classList.add('opacity-100');
+        
+        clearTimeout(notificationTimeout);
+        notificationTimeout = setTimeout(() => {
+            bookNowNotification.classList.remove('opacity-100');
+            bookNowNotification.classList.add('opacity-0');
+        }, 3000);
+    }
+
+    function hideNotification() {
+        bookNowNotification.classList.remove('opacity-100');
+        bookNowNotification.classList.add('opacity-0');
+    }
+
+    bookNowBtn.addEventListener('mouseenter', showNotification);
+    bookNowBtn.addEventListener('mouseleave', hideNotification);
 
     bookNowBtn.addEventListener('click', () => {
         bookingModal.style.display = 'block';
+        hideNotification();
     });
 
     closeBookingModal.addEventListener('click', () => {
@@ -202,24 +269,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     window.addEventListener('click', (event) => {
-        if (event.target === bookingModal) {
+        if (event.target == bookingModal) {
             bookingModal.style.display = 'none';
         }
     });
-
-    // Book Now Button Notification
-    const bookNowNotification = document.getElementById('bookNowNotification');
-    let notificationTimeout;
-
-    function showNotification() {
-        bookNowNotification.style.opacity = '1';
-        clearTimeout(notificationTimeout);
-        notificationTimeout = setTimeout(() => {
-            bookNowNotification.style.opacity = '0';
-        }, 3000);
-    }
-
-    setInterval(showNotification, 15000);
 
     // Initialize AOS
     AOS.init({
