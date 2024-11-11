@@ -200,49 +200,68 @@ h3 {
         }
         
         .filter-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            padding-bottom: 1rem;
-            -webkit-overflow-scrolling: touch;
-        }
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid #e5e7eb; /* Agregar una línea sutil para separar */
+}
 
-        .filter-btn {
-            background-color: #f3f4f6;
-            color: #4b5563;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            margin: 0 0.25rem;
-            white-space: nowrap;
-        }
+.filter-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem; /* Mejorar el tamaño para más comodidad */
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        .filter-btn:hover, .filter-btn:focus {
-            background-color: #e5e7eb;
-            color: #1f2937;
-        }
+.filter-btn:hover, .filter-btn:focus {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    transform: translateY(-2px); /* Sutil levantamiento para hover */
+}
 
-        .filter-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .gallery-item {
-            animation: fadeIn 0.5s ease-out;
-        }
+.gallery-item {
+    animation: fadeIn 0.5s ease-out;
+    transition: transform 0.3s ease; /* Agregar transición para el hover */
+}
 
-        @media (max-width: 640px) {
-            .filter-container {
-                justify-content: flex-start;
-            }
-        }
+.gallery-item:hover {
+    transform: scale(1.05); /* Sutil zoom en hover */
+}
+
+.gallery-item img {
+    border-radius: 12px; /* Esquinas más redondeadas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+}
+
+@media (max-width: 640px) {
+    .filter-container {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1024px) {
+    .gallery-item {
+        flex: 1 0 calc(33.33% - 1.5rem); /* Mejorar en pantallas medianas */
+    }
+}
 
         /* Estilos para el preloader */
         .preloader {
