@@ -160,6 +160,12 @@
 }
 
 /* Título y Texto */
+.service-card h2, .service-card h3 {
+    position: relative;
+    z-index: 2; /* Asegura que el texto esté por encima de la capa de opacidad */
+}
+
+/* Título con color primario */
 h2.text-primary-color {
     color: var(--primary-color);
 }
