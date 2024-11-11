@@ -100,36 +100,68 @@
             display: none;
         }
         
-        .service-card {
+       
+
+/* Tarjetas de Servicio */
+.service-card {
     position: relative;
-    border-radius: 15px;
-    overflow: hidden;
     background-size: cover;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height: 300px;
     color: white;
-    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
 }
 
-.service-card h3 {
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+/* Efecto Hover para las Tarjetas */
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
-.service-card p {
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
-}
-
-.view-service {
-    margin-top: 1rem;
-}
-
+/* Botones con Gradiente */
 .gradient-bg {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Botones de las Tarjetas */
+.service-card button {
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Efecto Hover para Botones */
+.service-card button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Título y Texto */
+h2.text-primary-color {
+    color: var(--primary-color);
+}
+
+h3 {
+    color: var(--secondary-color);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .service-card {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .service-card button {
+        width: 100%;
+    }
 }
         
         .testimonials-auto-scroll {
@@ -458,28 +490,28 @@
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-8 text-center text-primary-color" data-aos="fade-up">Our Services</h2>
         
-        <!-- Service 1 -->
-        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6" style="background-image: url('img/service1.jpg');">
+        <!-- Service 1: Protection Film -->
+        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6 rounded-lg shadow-lg" style="background-image: url('img/service1.jpg');" data-aos="fade-right">
             <h3 class="text-3xl font-bold mb-2">Protection Film</h3>
-            <p class="mb-4">Lorem ipsum dolor sit</p>
+            <p class="mb-4">High-quality protection film for ultimate scratch resistance.</p>
             <button class="modal-trigger view-service gradient-bg text-white px-4 py-2 rounded-full hover:opacity-90 transition" data-service="protection">
                 View Details
             </button>
         </div>
         
-        <!-- Service 2 -->
-        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6" style="background-image: url('img/service2.jpg');">
+        <!-- Service 2: Steam Cleaning -->
+        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6 rounded-lg shadow-lg" style="background-image: url('img/service2.jpg');" data-aos="fade-left">
             <h3 class="text-3xl font-bold mb-2">Steam Cleaning</h3>
-            <p class="mb-4">Lorem ipsum dolor sit</p>
+            <p class="mb-4">Eco-friendly steam cleaning for a spotless interior.</p>
             <button class="modal-trigger view-service gradient-bg text-white px-4 py-2 rounded-full hover:opacity-90 transition" data-service="steam">
                 View Details
             </button>
         </div>
         
-        <!-- Service 3 -->
-        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6" style="background-image: url('img/service3.jpg');">
+        <!-- Service 3: Ceramic Coating -->
+        <div class="service-card bg-cover bg-center text-white py-24 px-8 mb-6 rounded-lg shadow-lg" style="background-image: url('img/service3.jpg');" data-aos="fade-right">
             <h3 class="text-3xl font-bold mb-2">Ceramic Coating</h3>
-            <p class="mb-4">Lorem ipsum dolor sit</p>
+            <p class="mb-4">Durable ceramic coating for lasting protection and shine.</p>
             <button class="modal-trigger view-service gradient-bg text-white px-4 py-2 rounded-full hover:opacity-90 transition" data-service="ceramic">
                 View Details
             </button>
