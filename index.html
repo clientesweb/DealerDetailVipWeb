@@ -107,7 +107,7 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    color: white;
+    color: white; /* Esto asegura que el texto dentro de la tarjeta sea blanco */
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
@@ -147,7 +147,7 @@
     border-radius: 30px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: none;
-    color: white;
+    color: white; /* Asegura que el texto del botón sea blanco */
     cursor: pointer;
 }
 
@@ -163,8 +163,8 @@ h2.text-primary-color {
     color: var(--primary-color);
 }
 
-h3 {
-    color: var(--secondary-color);
+h3, .service-card p {
+    color: white; /* Asegura que tanto el título como el texto sean blancos */
 }
 
 /* Responsividad */
