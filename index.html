@@ -201,30 +201,29 @@ h3 {
         
         .filter-container {
     display: flex;
+    flex-wrap: wrap; /* Permite que los botones se ajusten automáticamente */
     justify-content: center;
     margin-bottom: 2rem;
-    overflow-x: auto;
     padding-bottom: 1rem;
-    -webkit-overflow-scrolling: touch;
-    border-bottom: 2px solid #e5e7eb; /* Agregar una línea sutil para separar */
+    gap: 0.75rem; /* Espacio entre los botones */
 }
 
 .filter-btn {
     background-color: #f3f4f6;
     color: #4b5563;
     font-weight: 600;
-    padding: 0.75rem 1.25rem; /* Mejorar el tamaño para más comodidad */
+    padding: 0.5rem 1rem;
     border-radius: 9999px;
     transition: all 0.3s ease;
-    margin: 0 0.5rem;
     white-space: nowrap;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 120px; /* Ancho mínimo de cada botón para mejor apariencia */
+    text-align: center; /* Centra el texto en los botones */
 }
 
-.filter-btn:hover, .filter-btn:focus {
+.filter-btn:hover,
+.filter-btn:focus {
     background-color: #e5e7eb;
     color: #1f2937;
-    transform: translateY(-2px); /* Sutil levantamiento para hover */
 }
 
 .filter-btn.active {
@@ -232,11 +231,17 @@ h3 {
     color: white;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@media (max-width: 768px) {
+    .filter-btn {
+        min-width: 100px; /* Ajuste en pantallas más pequeñas */
+    }
 }
 
+@media (max-width: 480px) {
+    .filter-btn {
+        min-width: 80px; /* Aún más ajustado en pantallas muy pequeñas */
+    }
+}
 .gallery-item {
     animation: fadeIn 0.5s ease-out;
     transition: transform 0.3s ease; /* Agregar transición para el hover */
