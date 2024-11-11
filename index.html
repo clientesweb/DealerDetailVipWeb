@@ -107,10 +107,11 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    color: white; /* Esto asegura que el texto dentro de la tarjeta sea blanco */
+    color: white;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    z-index: 2; /* Asegura que el contenido de la tarjeta esté por encima de la capa de opacidad */
 }
 
 /* Capa de opacidad */
@@ -141,13 +142,13 @@
 /* Botones de las Tarjetas */
 .service-card button {
     position: relative; /* Asegura que el botón esté por encima de la capa de opacidad */
-    z-index: 2; /* Para que el botón quede encima de la capa de opacidad */
+    z-index: 3; /* Para que el botón quede encima de la capa de opacidad */
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     padding: 0.5rem 1rem;
     border-radius: 30px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: none;
-    color: white; /* Asegura que el texto del botón sea blanco */
+    color: white;
     cursor: pointer;
 }
 
@@ -163,8 +164,8 @@ h2.text-primary-color {
     color: var(--primary-color);
 }
 
-h3, .service-card p {
-    color: white; /* Asegura que tanto el título como el texto sean blancos */
+h3 {
+    color: var(--secondary-color);
 }
 
 /* Responsividad */
