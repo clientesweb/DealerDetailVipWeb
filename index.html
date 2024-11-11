@@ -113,6 +113,19 @@
     transition: transform 0.3s ease-in-out, box-shadow 0.3s;
 }
 
+/* Capa de opacidad */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Ajusta la opacidad */
+    border-radius: 12px; /* Mantener las esquinas redondeadas */
+    z-index: 1; /* Coloca la capa debajo del contenido */
+}
+
 /* Efecto Hover para las Tarjetas */
 .service-card:hover {
     transform: translateY(-10px);
@@ -127,6 +140,8 @@
 
 /* Botones de las Tarjetas */
 .service-card button {
+    position: relative; /* Asegura que el botón esté por encima de la capa de opacidad */
+    z-index: 2; /* Para que el botón quede encima de la capa de opacidad */
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     padding: 0.5rem 1rem;
     border-radius: 30px;
